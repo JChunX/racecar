@@ -1,0 +1,2 @@
+rosbag:
+  bag_path: 'dropbox-maestral/bag_files/f1tenth' # home path not included

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Define your functions here
+build_workspace() {
+    cd /sim_ws \
+    && colcon build --symlink-install\
+    && cd /libf1tenth \
+    && pip install -e .
+}
+
+create_bag() {
+    python3 /libf1tenth/libf1tenth/util/bag_transporter.py
+}
+
+start_teleop() {
+    ros2 run teleop_twist_keyboard teleop_twist_keyboard
+}
+
+start_sim() {
+    ros2 launch f1tenth_bringup gym_bridge_launch.py > /sim_ws/vehicle_logs/simlog.txt
+}
+
+# Begin parsing arguments
+while (( "$#" )); do
+    case "$1" in
+        build)
+            build_workspace
+            shift
+            ;;
+        bag)
+            create_bag
+            function_two
+            shift
+            ;;
+        teleop)
+            start_teleop
+            shift
+            ;;
+        sim)
+            start_sim
+            shift
+            ;;
+        help)
+            help
+            ;;
+        *) # If no parameters matched then call default function
+            echo "Invalid command. Try 'help' for a list of commands."
+            shift
+            ;;
+    esac
+done

@@ -1,0 +1,6 @@
+*.egg-info
+
+vehicle_logs/
+log/
+install/
+build/

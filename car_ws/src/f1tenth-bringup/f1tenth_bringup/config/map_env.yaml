@@ -1,0 +1,8 @@
+slam:
+  slam_param_path: '/home/nvidia/f1tenth_ws/src/f1tenth_system/f1tenth_stack/config/f1tenth_online_async.yaml'
+
+map_saver:
+  ros__parameters:
+    save_map_timeout: 30.0
+    free_thresh_default: 0.25
+    occupied_thresh_default: 0.65
