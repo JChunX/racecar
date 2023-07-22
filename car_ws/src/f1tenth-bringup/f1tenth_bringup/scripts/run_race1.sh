@@ -1,1 +1,0 @@
-sros; lup; ros2 launch ros2 launch f1tenth_stack bringup_launch.py && ros2 run wall_follow_py wall_follow_node --ros-args -r drive:=/sckermann_cmd

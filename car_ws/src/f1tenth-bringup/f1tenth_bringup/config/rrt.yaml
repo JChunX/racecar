@@ -1,9 +1,0 @@
-rrt_node:
-  ros__parameters:
-    search_radius: 0.5
-    max_iters_rrt: 400
-    expansion_distance: 1.5
-    goal_thres: 1.0
-    occ_grid_resolution: 0.1
-    occ_grid_x_size: 30
-    occ_grid_y_size: 25
