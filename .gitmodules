@@ -1,0 +1,12 @@
+[submodule "lab-5-slam-and-pure-pursuit-bercedes-menz"]
+	path = lab-5-slam-and-pure-pursuit-bercedes-menz
+	url = git@github.com:f1tenth-class/lab-5-slam-and-pure-pursuit-bercedes-menz.git
+[submodule "f1tenth-bringup"]
+	path = f1tenth-bringup
+	url = git@github.com:JChunX/f1tenth-bringup.git
+[submodule "libf1tenth"]
+	path = libf1tenth
+	url = git@github.com:JChunX/libf1tenth.git
+[submodule "car_ws/src/f1tenth_gym_ros"]
+	path = car_ws/src/f1tenth_gym_ros
+	url = git@github.com:JChunX/f1tenth_gym_ros.git
