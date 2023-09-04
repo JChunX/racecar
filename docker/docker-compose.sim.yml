@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  f1tenth-gym:
+    build:
+      context: ../
+      dockerfile: ./docker/simulation/Dockerfile
+    image: f1tenth_gym_ros:latest
+    env_file:
+      - ../config/ros.env
+    ports:
+      - "${SHARED_PORT}:${SHARED_PORT}"
+    volumes:
+      - ../car_ws:/car_ws
+      - ../vehicle_logs:/vehicle_logs
+      - ../libf1tenth:/libf1tenth
+    stdin_open: true
+    tty: true
+    container_name: f1tenth-gym
+
+  logger:
+    build:
+      context: ../
+      dockerfile: ./docker/logger/Dockerfile
+    image: f1tenth_logger:latest
+    environment:
+      FOXGLOVE_API_KEY: /run/secrets/foxglove_api_key
+    secrets:
+      - foxglove_api_key
+    volumes:
+      - ../vehicle_logs:/vehicle_logs
+    stdin_open: true
+    tty: true
+    container_name: f1tenth-logger
+
+secrets:
+  foxglove_api_key:
+    file: ./logger/secrets/foxglove_api_key.txt

@@ -2,14 +2,20 @@
 
 # Define your functions here
 build_workspace() {
-    cd /sim_ws \
-    && colcon build --symlink-install\
-    && cd /libf1tenth \
-    && pip install -e .
+    cd /car_ws && \
+    apt-get update --fix-missing && \
+    rosdep install -i --from-path src --rosdistro humble -y && \
+    colcon build --symlink-install && \
+    cd /libf1tenth && \
+    pip install -e .
 }
 
 create_bag() {
     python3 /libf1tenth/libf1tenth/util/bag_transporter.py
+}
+
+start_bridge() {
+    ros2 launch foxglove_bridge foxglove_bridge_launch.xml
 }
 
 start_teleop() {
@@ -17,7 +23,24 @@ start_teleop() {
 }
 
 start_sim() {
-    ros2 launch f1tenth_bringup gym_bridge_launch.py > /sim_ws/vehicle_logs/simlog.txt
+    ros2 launch f1tenth_bringup gym_bridge_launch.py
+}
+
+help() {
+    echo "Usage: $0 [command]"
+    echo ""
+    echo "Available commands:"
+    echo "  build      - Build the workspace with necessary dependencies."
+    echo "  bridge     - Launch foxglove bridge."
+    echo "  bag        - Run the bag transporter script"
+    echo "  teleop     - Run the teleop twist keyboard."
+    echo "  sim        - Start the f1tenth simulation and log output."
+    echo "  help       - Display this help message."
+    echo ""
+    echo "Example:"
+    echo "  $0 build"
+    echo ""
+    exit 0
 }
 
 # Begin parsing arguments
@@ -27,9 +50,12 @@ while (( "$#" )); do
             build_workspace
             shift
             ;;
+        bridge)
+            start_bridge
+            shift
+            ;;
         bag)
             create_bag
-            function_two
             shift
             ;;
         teleop)
@@ -42,7 +68,9 @@ while (( "$#" )); do
             ;;
         help)
             help
+            shift
             ;;
+
         *) # If no parameters matched then call default function
             echo "Invalid command. Try 'help' for a list of commands."
             shift

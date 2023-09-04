@@ -1,0 +1,1 @@
+docker-compose -f docker-compose.sim.yml up -d

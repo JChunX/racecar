@@ -1,0 +1,3 @@
+#!/bin/bash
+source "/opt/ros/$ROS_DISTRO/setup.bash"
+source "/car_ws/install/local_setup.bash"

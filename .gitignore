@@ -4,3 +4,5 @@ vehicle_logs/
 log/
 install/
 build/
+docker/logger/secrets/*txt
+.DS_Store

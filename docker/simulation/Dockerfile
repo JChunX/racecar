@@ -19,32 +19,31 @@ RUN apt-get update --fix-missing && \
 RUN apt-get -y dist-upgrade
 RUN pip3 install transforms3d
 
+RUN mkdir /vehicle_logs
+
 # f1tenth gym
 RUN git clone https://github.com/f1tenth/f1tenth_gym
 RUN cd f1tenth_gym && \
     pip3 install -e .
 
-RUN mkdir -p sim_ws/src
+RUN mkdir -p car_ws/src
 
-# foxglove bridge
-RUN mkdir sim_ws/src/ros-foxglove-bridge
-RUN git clone https://github.com/foxglove/ros-foxglove-bridge /sim_ws/src/ros-foxglove-bridge
-
-# ros2 gym bridge
-RUN mkdir sim_ws/src/f1tenth_gym_ros
-COPY car_ws/src/f1tenth_gym_ros /sim_ws/src/f1tenth_gym_ros
+# copy car_ws/src to car_ws/src
+COPY car_ws/src /car_ws/src
 
 # build
 RUN source /opt/ros/humble/setup.bash && \
-    cd sim_ws/ && \
+    cd car_ws/ && \
     apt-get update --fix-missing && \
     rosdep install -i --from-path src --rosdistro humble -y && \
     colcon build
 
-# entrypoint script
+# convenience script
 COPY racecar /bin/racecar
 RUN chmod +x /bin/racecar
 
-WORKDIR '/sim_ws'
+# ros & workspace setup
+COPY source_sim /source_sim
+RUN chmod +x /source_sim
 
-ENV ROS_DOMAIN_ID=42
+WORKDIR '/car_ws'
