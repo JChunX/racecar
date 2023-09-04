@@ -1,6 +1,6 @@
 # racecar 🏎️
 
-F1tenth meta repo 🤓
+A containerized toolkit for the [F1Tenth](https://f1tenth.org/) autonomous racing platform.
 
 ## Docker 🐳
 Do the following in order:
@@ -26,7 +26,7 @@ docker/logger/secrets/foxglove_api_key.txt
 ```
 
 ## Sourcing Workspace 💡
-Your first command after launch a new terminal in the container should be:
+Your first command after launching a new terminal in the container should be:
 ```bash
 . /source_sim
 ```
@@ -43,7 +43,7 @@ racecar sim # run simulator
 
 ## Submodules 📦
 
-This repo is built up using submodules. 
+This repo is built up using submodules.
 If you wish to add more modules to it, simply call:
 ```bash
 git submodule add <repo_url> <path>
